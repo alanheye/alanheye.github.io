@@ -21,5 +21,3 @@ Every once in a while, I come across ideas or experiences that provoke deep thou
 This blog is not just a personal diary, but a platform to connect with like-minded individuals who share similar interests. I'm excited about this journey and look forward to engaging with readers and fellow bloggers.
 
 Stay tuned for more posts!
-
-[Your Name or Signature]
