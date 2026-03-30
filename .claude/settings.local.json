@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Remove-Item -Force ''G:/My Drive/2_Career/0_AI/0_own_projects/alanheye.github.io/.git/worktrees/interesting-rosalind/index.lock''\")"
+    ]
+  }
+}
