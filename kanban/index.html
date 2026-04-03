@@ -369,6 +369,18 @@
 
   const COL_DEFAULTS = Object.fromEntries(COLUMNS.map(c => [c.id, c.label]));
 
+  // Migrate data from old single-board storage keys to new per-board keys
+  (function migrate() {
+    const oldData   = localStorage.getItem('kanban_data_v1');
+    const oldLabels = localStorage.getItem('kanban_labels_v1');
+    if (oldData && !localStorage.getItem('kanban_data_v1_daily')) {
+      localStorage.setItem('kanban_data_v1_daily', oldData);
+    }
+    if (oldLabels && !localStorage.getItem('kanban_labels_v1_daily')) {
+      localStorage.setItem('kanban_labels_v1_daily', oldLabels);
+    }
+  })();
+
   const BOARDS = [
     { id: 'daily',   label: 'Daily' },
     { id: 'monthly', label: 'Monthly' },
