@@ -32,323 +32,184 @@
     header h1 { font-size: 1.1rem; font-weight: 600; color: #f1f5f9; }
     header .sep { color: #475569; }
 
+    .view-toggle { margin-left: auto; display: flex; gap: 0.25rem; background: rgba(255,255,255,0.08); border-radius: 8px; padding: 0.2rem; }
+    .view-btn { background: none; border: none; color: #94a3b8; font-size: 0.8rem; font-weight: 600; padding: 0.3rem 0.85rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; }
+    .view-btn:hover { color: #f1f5f9; }
+    .view-btn.active { background: #fff; color: #1e293b; }
+
     /* ── Board sections ── */
-    .board-section {
-      padding: 1.5rem 1.5rem 0;
-      border-left: 4px solid transparent;
-      margin-left: 0;
-    }
+    .board-section { padding: 1.5rem 1.5rem 0; }
 
     .board-section[data-board="daily"]   { --board-accent: #a78bfa; }
     .board-section[data-board="monthly"] { --board-accent: #2dd4bf; }
     .board-section[data-board="3month"]  { --board-accent: #fb923c; }
 
     .board-section-title {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--board-accent, #888);
-      margin-bottom: 0.75rem;
-      padding: 0.15rem 0.5rem 0.15rem 0;
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--board-accent, #888);
+      margin-bottom: 0.75rem; padding: 0.15rem 0.5rem 0.15rem 0.6rem;
       border-left: 3px solid var(--board-accent, #888);
-      padding-left: 0.6rem;
-      border-radius: 0 4px 4px 0;
-      cursor: text;
-      display: inline-block;
+      border-radius: 0 4px 4px 0; cursor: text; display: inline-block;
     }
-
     .board-section-title:hover { background: rgba(0,0,0,0.05); }
 
     .board-section-title-input {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--board-accent, #888);
-      background: #fff;
-      border: 2px solid var(--board-accent, #0052cc);
-      border-radius: 4px;
-      padding: 0.1rem 0.35rem;
-      outline: none;
-      margin-bottom: 0.75rem;
-      display: block;
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--board-accent, #888);
+      background: #fff; border: 2px solid var(--board-accent, #0052cc);
+      border-radius: 4px; padding: 0.1rem 0.35rem; outline: none;
+      margin-bottom: 0.75rem; display: block;
     }
 
-    /* ── Board row ── */
-    .board {
-      display: flex;
-      gap: 1rem;
-      overflow-x: auto;
-      align-items: flex-start;
-      padding-bottom: 1.5rem;
-    }
+    .board { display: flex; gap: 1rem; overflow-x: auto; align-items: flex-start; padding-bottom: 1.5rem; }
 
-    /* ── Columns ── */
-    .column {
-      border-radius: 12px;
-      width: 260px;
-      min-width: 260px;
-      display: flex;
-      flex-direction: column;
-      max-height: 440px;
-      background: #e8eaed;
-      overflow: hidden;
-    }
+    .column { border-radius: 12px; width: 260px; min-width: 260px; display: flex; flex-direction: column; max-height: 440px; background: #e8eaed; overflow: hidden; }
 
-    /* Column accent colors via data-col */
     .column[data-col="todo"]       { --col: #94a3b8; --col-bg: #f8fafc; --col-light: #f1f5f9; }
     .column[data-col="inprogress"] { --col: #60a5fa; --col-bg: #eff6ff; --col-light: #dbeafe; }
     .column[data-col="review"]     { --col: #fbbf24; --col-bg: #fffbeb; --col-light: #fef3c7; }
     .column[data-col="blocked"]    { --col: #f87171; --col-bg: #fef2f2; --col-light: #fee2e2; }
     .column[data-col="done"]       { --col: #4ade80; --col-bg: #f0fdf4; --col-light: #dcfce7; }
 
-    .column-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.6rem 0.85rem 0.5rem;
-      background: var(--col, #64748b);
-      border-radius: 12px 12px 0 0;
-    }
+    .column-header { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0.85rem 0.5rem; background: var(--col, #64748b); border-radius: 12px 12px 0 0; }
 
-    .column-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      cursor: text;
-      border-radius: 3px;
-      padding: 0.1rem 0.25rem;
-    }
-
+    .column-title { font-size: 0.75rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.06em; cursor: text; border-radius: 3px; padding: 0.1rem 0.25rem; }
     .column-title:hover { background: rgba(255,255,255,0.15); }
 
-    .column-title-input {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      background: rgba(255,255,255,0.2);
-      border: 2px solid rgba(255,255,255,0.7);
-      border-radius: 3px;
-      padding: 0.1rem 0.25rem;
-      outline: none;
-      width: 140px;
-    }
+    .column-title-input { font-size: 0.75rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.7); border-radius: 3px; padding: 0.1rem 0.25rem; outline: none; width: 140px; }
 
-    .column-count {
-      background: rgba(255,255,255,0.25);
-      color: #fff;
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 0.1rem 0.45rem;
-      border-radius: 10px;
-    }
+    .column-count { background: rgba(255,255,255,0.25); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 0.1rem 0.45rem; border-radius: 10px; }
 
-    .cards {
-      flex: 1;
-      overflow-y: auto;
-      padding: 0.5rem 0.5rem 0;
-      min-height: 40px;
-      background: var(--col-bg, #f8f9fa);
-    }
-
+    .cards { flex: 1; overflow-y: auto; padding: 0.5rem 0.5rem 0; min-height: 40px; background: var(--col-bg, #f8f9fa); }
     .cards.drag-over { background: var(--col-light, #e9ecef); }
 
-    /* ── Cards ── */
-    .card {
-      background: #fff;
-      border-radius: 8px;
-      padding: 0.6rem 0.7rem;
-      margin-bottom: 0.5rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-      cursor: grab;
-      position: relative;
-      user-select: none;
-      word-break: break-word;
-      border-left: 3px solid var(--col, #64748b);
-      transition: box-shadow 0.15s, transform 0.1s;
-    }
-
+    .card { background: #fff; border-radius: 8px; padding: 0.6rem 0.7rem; margin-bottom: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.08); cursor: grab; position: relative; user-select: none; word-break: break-word; border-left: 3px solid var(--col, #64748b); transition: box-shadow 0.15s, transform 0.1s; }
     .card:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.12); transform: translateY(-1px); }
     .card:active { cursor: grabbing; }
     .card.dragging { opacity: 0.45; box-shadow: 0 8px 20px rgba(0,0,0,0.18); transform: rotate(1.5deg); }
 
-    .card-text {
-      font-size: 0.875rem;
-      line-height: 1.45;
-      color: #1e293b;
-      margin-right: 1.25rem;
-      cursor: text;
-      border-radius: 3px;
-      padding: 0.1rem;
-      white-space: pre-wrap;
-    }
-
+    .card-text { font-size: 0.875rem; line-height: 1.45; color: #1e293b; margin-right: 1.25rem; cursor: text; border-radius: 3px; padding: 0.1rem; white-space: pre-wrap; }
     .card-text:hover { background: #f8fafc; }
 
-    .card-text-input {
-      font-size: 0.875rem;
-      line-height: 1.45;
-      color: #1e293b;
-      font-family: inherit;
-      width: 100%;
-      border: 2px solid var(--col, #3b82f6);
-      border-radius: 3px;
-      padding: 0.1rem;
-      outline: none;
-      resize: none;
-      margin-right: 1.25rem;
-    }
+    .card-text-input { font-size: 0.875rem; line-height: 1.45; color: #1e293b; font-family: inherit; width: 100%; border: 2px solid var(--col, #3b82f6); border-radius: 3px; padding: 0.1rem; outline: none; resize: none; margin-right: 1.25rem; }
 
-    .card-delete {
-      position: absolute;
-      top: 0.4rem;
-      right: 0.5rem;
-      background: none;
-      border: none;
-      color: #cbd5e1;
-      font-size: 1rem;
-      cursor: pointer;
-      line-height: 1;
-      padding: 0;
-    }
-
+    .card-delete { position: absolute; top: 0.4rem; right: 0.5rem; background: none; border: none; color: #cbd5e1; font-size: 1rem; cursor: pointer; line-height: 1; padding: 0; }
     .card-delete:hover { color: #ef4444; }
 
-    /* ── Add card ── */
-    .add-card-area {
-      padding: 0.4rem 0.5rem 0.5rem;
-      background: var(--col-bg, #f8f9fa);
-      border-radius: 0 0 12px 12px;
-    }
+    .add-card-area { padding: 0.4rem 0.5rem 0.5rem; background: var(--col-bg, #f8f9fa); border-radius: 0 0 12px 12px; }
 
     .add-card-form { display: none; flex-direction: column; gap: 0.5rem; }
     .add-card-form.open { display: flex; }
 
-    .add-card-form textarea {
-      width: 100%;
-      border: 2px solid var(--col, #3b82f6);
-      border-radius: 6px;
-      padding: 0.5rem;
-      font-family: inherit;
-      font-size: 0.875rem;
-      resize: none;
-      outline: none;
-      min-height: 64px;
-      background: #fff;
-    }
+    .add-card-form textarea { width: 100%; border: 2px solid var(--col, #3b82f6); border-radius: 6px; padding: 0.5rem; font-family: inherit; font-size: 0.875rem; resize: none; outline: none; min-height: 64px; background: #fff; }
 
     .add-card-actions { display: flex; align-items: center; gap: 0.5rem; }
 
-    .btn-add-confirm {
-      background: var(--col, #3b82f6);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 0.35rem 0.8rem;
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
+    .btn-add-confirm { background: var(--col, #3b82f6); color: #fff; border: none; border-radius: 6px; padding: 0.35rem 0.8rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; }
     .btn-add-confirm:hover { filter: brightness(0.9); }
 
-    .btn-add-cancel {
-      background: none;
-      border: none;
-      font-size: 1.25rem;
-      color: #94a3b8;
-      cursor: pointer;
-      line-height: 1;
-    }
-
+    .btn-add-cancel { background: none; border: none; font-size: 1.25rem; color: #94a3b8; cursor: pointer; line-height: 1; }
     .btn-add-cancel:hover { color: #334155; }
 
-    .btn-add-card {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      background: none;
-      border: none;
-      color: var(--col, #64748b);
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      padding: 0.35rem 0.4rem;
-      border-radius: 6px;
-      width: 100%;
-      text-align: left;
-      opacity: 0.8;
-    }
-
+    .btn-add-card { display: flex; align-items: center; gap: 0.35rem; background: none; border: none; color: var(--col, #64748b); font-size: 0.85rem; font-weight: 500; cursor: pointer; padding: 0.35rem 0.4rem; border-radius: 6px; width: 100%; text-align: left; opacity: 0.8; }
     .btn-add-card:hover { background: var(--col-light, #e2e8f0); opacity: 1; }
 
-    .drop-placeholder {
-      height: 3px;
-      background: var(--col, #3b82f6);
-      border-radius: 2px;
-      margin-bottom: 0.5rem;
-      display: none;
-      opacity: 0.6;
-    }
-
+    .drop-placeholder { height: 3px; background: var(--col, #3b82f6); border-radius: 2px; margin-bottom: 0.5rem; display: none; opacity: 0.6; }
     .drop-placeholder.visible { display: block; }
 
-    /* ── PIN overlay ── */
-    #pin-overlay {
-      position: fixed;
-      inset: 0;
-      background: #1e293b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
+    /* ── Plan view ── */
+    #plan { padding: 1.5rem; max-width: 860px; margin: 0 auto; }
+
+    .plan-header { margin-bottom: 1.5rem; }
+
+    .plan-progress-label { font-size: 0.8rem; font-weight: 600; color: #64748b; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .plan-progress-bar { height: 10px; background: #e2e8f0; border-radius: 99px; overflow: hidden; margin-bottom: 1rem; }
+    .plan-progress-fill { height: 100%; background: linear-gradient(90deg, #60a5fa, #a78bfa); border-radius: 99px; transition: width 0.4s; }
+
+    .plan-phase-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.85rem; border-radius: 99px; font-size: 0.8rem; font-weight: 600; color: #fff; margin-bottom: 0; }
+
+    /* Milestones */
+    .milestones { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+
+    .milestone {
+      flex: 1; min-width: 180px;
+      background: #fff; border-radius: 10px;
+      padding: 0.75rem 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+      border-left: 3px solid #e2e8f0;
+    }
+    .milestone.done { border-left-color: #4ade80; }
+    .milestone.active { border-left-color: #60a5fa; }
+
+    .milestone-date { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; margin-bottom: 0.2rem; }
+    .milestone-label { font-size: 0.85rem; color: #1e293b; line-height: 1.35; }
+    .milestone-status { font-size: 0.72rem; font-weight: 600; margin-top: 0.35rem; }
+    .milestone.done .milestone-status { color: #4ade80; }
+    .milestone.active .milestone-status { color: #60a5fa; }
+    .milestone .milestone-status { color: #94a3b8; }
+
+    /* Week cards */
+    .week-card {
+      background: #fff; border-radius: 12px; margin-bottom: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .week-card.current { border-color: #60a5fa; box-shadow: 0 4px 16px rgba(96,165,250,0.15); }
+
+    .week-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.7rem 1rem;
+      background: #f8fafc;
+      border-bottom: 1px solid #f1f5f9;
     }
 
+    .week-title { font-size: 0.875rem; font-weight: 700; color: #1e293b; }
+    .week-current-badge { font-size: 0.7rem; font-weight: 700; background: #60a5fa; color: #fff; padding: 0.15rem 0.6rem; border-radius: 99px; }
+    .week-phase-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .week-header-left { display: flex; align-items: center; gap: 0.6rem; }
+
+    .week-tasks { padding: 0.25rem 0; }
+
+    .task-row {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.55rem 1rem;
+      border-bottom: 1px solid #f8fafc;
+      transition: background 0.1s;
+    }
+    .task-row:last-child { border-bottom: none; }
+    .task-row:hover { background: #f8fafc; }
+    .task-row.checked { opacity: 0.5; }
+    .task-row.checked .task-text { text-decoration: line-through; color: #94a3b8; }
+
+    .task-checkbox { width: 16px; height: 16px; border-radius: 4px; border: 2px solid #cbd5e1; appearance: none; cursor: pointer; flex-shrink: 0; margin-top: 2px; transition: all 0.15s; }
+    .task-checkbox:checked { background: #60a5fa; border-color: #60a5fa; }
+    .task-checkbox:checked::after { content: '✓'; display: block; color: #fff; font-size: 10px; font-weight: 700; text-align: center; line-height: 12px; }
+
+    .task-tag { font-size: 0.68rem; font-weight: 700; padding: 0.1rem 0.45rem; border-radius: 99px; flex-shrink: 0; margin-top: 2px; }
+    .tag-machine   { background: #dbeafe; color: #2563eb; }
+    .tag-fusion    { background: #ede9fe; color: #7c3aed; }
+    .tag-business  { background: #ffedd5; color: #c2410c; }
+    .tag-market    { background: #ccfbf1; color: #0f766e; }
+
+    .task-text { font-size: 0.875rem; color: #334155; line-height: 1.45; }
+
+    /* PIN overlay */
+    #pin-overlay { position: fixed; inset: 0; background: #1e293b; display: flex; align-items: center; justify-content: center; z-index: 9999; }
     #pin-overlay.hidden { display: none; }
 
-    .pin-box {
-      background: #fff;
-      border-radius: 16px;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-      width: 280px;
-    }
-
+    .pin-box { background: #fff; border-radius: 16px; padding: 2.5rem 2rem; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); width: 280px; }
     .pin-box h2 { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem; }
     .pin-box p  { font-size: 0.875rem; color: #94a3b8; margin-bottom: 1.5rem; }
 
     .pin-dots { display: flex; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem; }
-
-    .pin-dot {
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      border: 2px solid #cbd5e1;
-      background: transparent;
-      transition: background 0.15s, border-color 0.15s;
-    }
-
+    .pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #cbd5e1; background: transparent; transition: background 0.15s, border-color 0.15s; }
     .pin-dot.filled { background: #6366f1; border-color: #6366f1; }
 
     .pin-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-
-    .pin-key {
-      background: #f1f5f9;
-      border: none;
-      border-radius: 10px;
-      padding: 0.8rem;
-      font-size: 1.1rem;
-      font-weight: 500;
-      cursor: pointer;
-      color: #1e293b;
-      transition: background 0.1s;
-    }
-
+    .pin-key { background: #f1f5f9; border: none; border-radius: 10px; padding: 0.8rem; font-size: 1.1rem; font-weight: 500; cursor: pointer; color: #1e293b; transition: background 0.1s; }
     .pin-key:hover  { background: #e2e8f0; }
     .pin-key:active { background: #cbd5e1; }
     .pin-key.del    { color: #ef4444; font-size: 1rem; }
@@ -360,7 +221,7 @@
 
 <div id="pin-overlay">
   <div class="pin-box">
-    <h2>Kanban</h2>
+    <h2>Alan He</h2>
     <p>Enter your 4-digit PIN</p>
     <div class="pin-dots">
       <div class="pin-dot" id="d0"></div>
@@ -390,11 +251,20 @@
   <a href="/">← Alan He</a>
   <span class="sep">·</span>
   <h1>Kanban</h1>
+  <div class="view-toggle">
+    <button class="view-btn active" data-view="boards" onclick="switchView('boards')">Boards</button>
+    <button class="view-btn" data-view="plan" onclick="switchView('plan')">Plan</button>
+  </div>
 </header>
 
 <div id="app"></div>
+<div id="plan" style="display:none"></div>
 
 <script>
+  // ═══════════════════════════════════════════════════════════
+  // KANBAN
+  // ═══════════════════════════════════════════════════════════
+
   const COLUMNS = [
     { id: 'todo',       label: 'To Do' },
     { id: 'inprogress', label: 'In Progress' },
@@ -405,16 +275,12 @@
 
   const COL_DEFAULTS = Object.fromEntries(COLUMNS.map(c => [c.id, c.label]));
 
-  // Migrate data from old single-board storage keys to new per-board keys
+  // Migrate old storage keys
   (function migrate() {
     const oldData   = localStorage.getItem('kanban_data_v1');
     const oldLabels = localStorage.getItem('kanban_labels_v1');
-    if (oldData && !localStorage.getItem('kanban_data_v1_daily')) {
-      localStorage.setItem('kanban_data_v1_daily', oldData);
-    }
-    if (oldLabels && !localStorage.getItem('kanban_labels_v1_daily')) {
-      localStorage.setItem('kanban_labels_v1_daily', oldLabels);
-    }
+    if (oldData   && !localStorage.getItem('kanban_data_v1_daily'))   localStorage.setItem('kanban_data_v1_daily', oldData);
+    if (oldLabels && !localStorage.getItem('kanban_labels_v1_daily')) localStorage.setItem('kanban_labels_v1_daily', oldLabels);
   })();
 
   const BOARDS = [
@@ -424,52 +290,28 @@
   ];
 
   const BOARD_LABELS_KEY = 'kanban_board_labels_v1';
-  function loadBoardLabels() {
-    try { return JSON.parse(localStorage.getItem(BOARD_LABELS_KEY)) || {}; } catch { return {}; }
-  }
+  function loadBoardLabels() { try { return JSON.parse(localStorage.getItem(BOARD_LABELS_KEY)) || {}; } catch { return {}; } }
   const boardLabels = loadBoardLabels();
   BOARDS.forEach(b => { if (boardLabels[b.id]) b.label = boardLabels[b.id]; });
 
-  function storageKey(boardId)  { return `kanban_data_v1_${boardId}`; }
-  function labelsKey(boardId)   { return `kanban_labels_v1_${boardId}`; }
+  function storageKey(boardId) { return `kanban_data_v1_${boardId}`; }
+  function labelsKey(boardId)  { return `kanban_labels_v1_${boardId}`; }
 
   function loadData(boardId) {
-    try {
-      const raw = localStorage.getItem(storageKey(boardId));
-      return raw ? JSON.parse(raw) : defaultData();
-    } catch { return defaultData(); }
+    try { const raw = localStorage.getItem(storageKey(boardId)); return raw ? JSON.parse(raw) : defaultData(); }
+    catch { return defaultData(); }
   }
-
-  function defaultData() {
-    return { todo: [], inprogress: [], review: [], blocked: [], done: [] };
-  }
-
-  function saveData(boardId, data) {
-    localStorage.setItem(storageKey(boardId), JSON.stringify(data));
-  }
-
-  function loadLabels(boardId) {
-    try { return JSON.parse(localStorage.getItem(labelsKey(boardId))) || {}; } catch { return {}; }
-  }
-
-  function saveLabels(boardId, labels) {
-    localStorage.setItem(labelsKey(boardId), JSON.stringify(labels));
-  }
-
+  function defaultData() { return { todo: [], inprogress: [], review: [], blocked: [], done: [] }; }
+  function saveData(boardId, data)    { localStorage.setItem(storageKey(boardId), JSON.stringify(data)); }
+  function loadLabels(boardId)        { try { return JSON.parse(localStorage.getItem(labelsKey(boardId))) || {}; } catch { return {}; } }
+  function saveLabels(boardId, labels){ localStorage.setItem(labelsKey(boardId), JSON.stringify(labels)); }
   function uid() { return Math.random().toString(36).slice(2, 10); }
 
-  // allData[boardId] = { todo: [], inprogress: [], ... }
-  // allLabels[boardId] = { colId: customLabel, ... }
   const allData   = {};
   const allLabels = {};
-  BOARDS.forEach(b => {
-    allData[b.id]   = loadData(b.id);
-    allLabels[b.id] = loadLabels(b.id);
-  });
+  BOARDS.forEach(b => { allData[b.id] = loadData(b.id); allLabels[b.id] = loadLabels(b.id); });
 
-  let dragState = null; // { boardId, cardId, fromCol }
-
-  // ── Render ─────────────────────────────────────────────────
+  let dragState = null;
 
   function renderAll() {
     const app = document.getElementById('app');
@@ -492,12 +334,10 @@
     const boardEl = document.createElement('div');
     boardEl.className = 'board';
     boardEl.dataset.board = board.id;
-
     COLUMNS.forEach(col => {
       const label = allLabels[board.id][col.id] || COL_DEFAULTS[col.id];
       boardEl.appendChild(buildColumn(board.id, { ...col, label }));
     });
-
     section.appendChild(boardEl);
     return section;
   }
@@ -510,7 +350,6 @@
     wrap.className = 'column';
     wrap.dataset.col = col.id;
 
-    // Header
     const header = document.createElement('div');
     header.className = 'column-header';
 
@@ -529,12 +368,10 @@
     header.appendChild(countEl);
     wrap.appendChild(header);
 
-    // Cards
     const cardsEl = document.createElement('div');
     cardsEl.className = 'cards';
     cardsEl.dataset.board = boardId;
     cardsEl.dataset.col   = col.id;
-
     cards.forEach(card => cardsEl.appendChild(buildCard(boardId, card, col.id)));
 
     const ph = document.createElement('div');
@@ -545,10 +382,8 @@
     cardsEl.addEventListener('dragover',  e => onDragOver(e, boardId, col.id));
     cardsEl.addEventListener('dragleave', e => onDragLeave(e));
     cardsEl.addEventListener('drop',      e => onDrop(e, boardId, col.id));
-
     wrap.appendChild(cardsEl);
 
-    // Add card area (To Do only)
     const addArea = document.createElement('div');
     addArea.className = 'add-card-area';
 
@@ -560,8 +395,7 @@
       <div class="add-card-actions">
         <button class="btn-add-confirm">Add card</button>
         <button class="btn-add-cancel" title="Cancel">✕</button>
-      </div>
-    `;
+      </div>`;
     form.querySelector('.btn-add-confirm').addEventListener('click', () => addCard(boardId, col.id));
     form.querySelector('.btn-add-cancel').addEventListener('click', () => closeForm(boardId, col.id));
     form.querySelector('textarea').addEventListener('keydown', e => {
@@ -607,8 +441,6 @@
     return el;
   }
 
-  // ── Forms ──────────────────────────────────────────────────
-
   function openForm(boardId, colId) {
     document.getElementById(`form-${boardId}-${colId}`).classList.add('open');
     const btn = document.getElementById(`addbtn-${boardId}-${colId}`);
@@ -638,8 +470,6 @@
     renderAll();
   }
 
-  // ── Inline edit ────────────────────────────────────────────
-
   function startEditCard(boardId, card, colId, cardEl) {
     const textEl   = cardEl.querySelector('.card-text');
     const textarea = document.createElement('textarea');
@@ -660,7 +490,6 @@
       }
       renderAll();
     }
-
     textarea.addEventListener('blur', commit);
     textarea.addEventListener('keydown', e => {
       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); textarea.blur(); }
@@ -678,14 +507,9 @@
 
     function commit() {
       const val = input.value.trim();
-      if (val) {
-        board.label = val;
-        boardLabels[board.id] = val;
-        localStorage.setItem(BOARD_LABELS_KEY, JSON.stringify(boardLabels));
-      }
+      if (val) { board.label = val; boardLabels[board.id] = val; localStorage.setItem(BOARD_LABELS_KEY, JSON.stringify(boardLabels)); }
       renderAll();
     }
-
     input.addEventListener('blur', commit);
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
@@ -703,21 +527,15 @@
 
     function commit() {
       const val = input.value.trim();
-      if (val) {
-        allLabels[boardId][col.id] = val;
-        saveLabels(boardId, allLabels[boardId]);
-      }
+      if (val) { allLabels[boardId][col.id] = val; saveLabels(boardId, allLabels[boardId]); }
       renderAll();
     }
-
     input.addEventListener('blur', commit);
     input.addEventListener('keydown', e => {
       if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
       if (e.key === 'Escape') { input.removeEventListener('blur', commit); renderAll(); }
     });
   }
-
-  // ── Drag & Drop ────────────────────────────────────────────
 
   function onDragStart(e, boardId, cardId, colId) {
     dragState = { boardId, cardId, fromCol: colId };
@@ -739,17 +557,14 @@
     if (!dragState || dragState.boardId !== boardId) return;
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
-
     const cardsEl = e.currentTarget;
     cardsEl.classList.add('drag-over');
-
     const cards = [...cardsEl.querySelectorAll('.card:not(.dragging)')];
     let insertBefore = null;
     for (const card of cards) {
       const rect = card.getBoundingClientRect();
       if (e.clientY < rect.top + rect.height / 2) { insertBefore = card; break; }
     }
-
     document.querySelectorAll('.drop-placeholder.visible').forEach(el => el.classList.remove('visible'));
     if (insertBefore) {
       const prev = insertBefore.previousElementSibling;
@@ -771,17 +586,14 @@
   function onDrop(e, boardId, colId) {
     if (!dragState || dragState.boardId !== boardId) return;
     e.preventDefault();
-
     const { cardId, fromCol } = dragState;
     const cardsEl = e.currentTarget;
     const cards   = [...cardsEl.querySelectorAll('.card:not(.dragging)')];
     let insertIndex = cards.length;
-
     for (let i = 0; i < cards.length; i++) {
       const rect = cards[i].getBoundingClientRect();
       if (e.clientY < rect.top + rect.height / 2) { insertIndex = i; break; }
     }
-
     const cardObj = allData[boardId][fromCol].find(c => c.id === cardId);
     if (!cardObj) return;
     allData[boardId][fromCol] = allData[boardId][fromCol].filter(c => c.id !== cardId);
@@ -790,10 +602,222 @@
     renderAll();
   }
 
-  renderAll();
+  // ═══════════════════════════════════════════════════════════
+  // PLAN
+  // ═══════════════════════════════════════════════════════════
 
-  // ── PIN protection ─────────────────────────────────────────
-  const PIN_HASH   = '0572f0f48c9d4da7f59ccfff270df8a46297128f367248c5319ffe5b16e2f3ad';
+  const PLAN_KEY = 'threeprint_plan_v1';
+
+  const PHASES = [
+    { label: 'Phase 1: Machine mastery',   start: '2026-04-04', end: '2026-04-25', color: '#a78bfa' },
+    { label: 'Phase 2: Product & audience', start: '2026-04-26', end: '2026-05-23', color: '#2dd4bf' },
+    { label: 'Phase 3: Launch ready',       start: '2026-05-24', end: '2026-06-11', color: '#fb923c' },
+  ];
+
+  const MILESTONES = [
+    { date: '2026-04-18', label: 'First Fusion 360 product printed' },
+    { date: '2026-04-25', label: '10 products printed, costed & photographed' },
+    { date: '2026-05-10', label: 'Chinese-Dutch product ready + Xiaohongshu live' },
+    { date: '2026-06-07', label: 'Shop live, KVK drafted, launch decision made' },
+  ];
+
+  const WEEKS = [
+    { week: 1, label: 'Week 1 · Apr 4', start: '2026-04-04', tasks: [
+      { id: 'w1t1', tag: 'Machine',   text: 'Calibrate P2S, AMS multicolor test, benchmark PLA settings' },
+      { id: 'w1t2', tag: 'Fusion 360',text: 'Install + Autodesk tutorials: sketch, extrude, constraints only' },
+      { id: 'w1t3', tag: 'Business',  text: 'Set up cost tracking spreadsheet — log every print with real data' },
+    ]},
+    { week: 2, label: 'Week 2 · Apr 11', start: '2026-04-11', tasks: [
+      { id: 'w2t1', tag: 'Machine',   text: 'Test PETG + TPU — document failure rates, tune retraction per material' },
+      { id: 'w2t2', tag: 'Fusion 360',text: 'Design first real product: bilingual nameplate — parametric, text embossed' },
+      { id: 'w2t3', tag: 'Market',    text: 'Create Instagram + TikTok — post first timelapse, no selling language' },
+    ]},
+    { week: 3, label: 'Week 3 · Apr 18', start: '2026-04-18', tasks: [
+      { id: 'w3t1', tag: 'Machine',   text: 'Print 10 roadmap products — track cost per piece, photograph each one' },
+      { id: 'w3t2', tag: 'Fusion 360',text: 'Download 3 Makerworld models, modify each — practice working from existing files' },
+      { id: 'w3t3', tag: 'Market',    text: 'Share prints in WhatsApp + WeChat groups — gather feedback, no selling' },
+    ]},
+    { week: 4, label: 'Week 4 · Apr 26', start: '2026-04-26', tasks: [
+      { id: 'w4t1', tag: 'Machine',   text: 'First Chinese-Dutch cultural product — AMS multicolor, gift quality finish' },
+      { id: 'w4t2', tag: 'Fusion 360',text: 'Design a parametric enclosure or B2B sample part — practice tolerance fitting' },
+      { id: 'w4t3', tag: 'Market',    text: 'Post 3x this week: behind-the-scenes + product reveal + process clip' },
+    ]},
+    { week: 5, label: 'Week 5 · May 3', start: '2026-05-03', tasks: [
+      { id: 'w5t1', tag: 'Business',  text: 'Research UWV startperiode rules — hour reporting, income deduction, 26-week window' },
+      { id: 'w5t2', tag: 'Fusion 360',text: 'Build 3 portfolio pieces — different materials, photo-ready, priced from real data' },
+      { id: 'w5t3', tag: 'Market',    text: 'Reach out to 5 Eindhoven SMEs on LinkedIn — introduce, no pitch yet' },
+    ]},
+    { week: 6, label: 'Week 6 · May 10', start: '2026-05-10', tasks: [
+      { id: 'w6t1', tag: 'Machine',   text: 'Full multicolor cultural product run — zodiac, CNY, or Eindhoven landmark' },
+      { id: 'w6t2', tag: 'Fusion 360',text: 'Design Eindhoven landmark model — Philips light tower or city skyline slice' },
+      { id: 'w6t3', tag: 'Market',    text: 'Set up Xiaohongshu — post first process video in Chinese, use bilingual captions' },
+    ]},
+    { week: 7, label: 'Week 7 · May 17', start: '2026-05-17', tasks: [
+      { id: 'w7t1', tag: 'Business',  text: 'Finalize pricing for 5 core products — based only on real tracked cost data' },
+      { id: 'w7t2', tag: 'Fusion 360',text: 'One fully parametric product — size, text, or colour adjustable per order' },
+      { id: 'w7t3', tag: 'Market',    text: 'Collect warm contacts — everyone who reacted, DM\'d, or asked price so far' },
+    ]},
+    { week: 8, label: 'Week 8 · May 24', start: '2026-05-24', tasks: [
+      { id: 'w8t1', tag: 'Business',  text: 'Draft KVK registration — activity description, SBI codes, plan written' },
+      { id: 'w8t2', tag: 'Market',    text: 'Build threeprint.nl shop — 3 real products, real photos, real prices' },
+      { id: 'w8t3', tag: 'Market',    text: 'Prepare Etsy shop draft — listings complete but NOT published yet' },
+    ]},
+    { week: 9, label: 'Week 9 · May 31', start: '2026-05-31', tasks: [
+      { id: 'w9t1', tag: 'Business',  text: 'Check ASML contract for side-business or IP clauses — get clarity before Jun 12' },
+      { id: 'w9t2', tag: 'Business',  text: 'Make the call: WW startperiode or find new job first — decide this week' },
+      { id: 'w9t3', tag: 'Market',    text: 'Full product portfolio shoot — natural light, clean backgrounds, all 5 products' },
+    ]},
+    { week: 10, label: 'Week 10 · Jun 7', start: '2026-06-07', tasks: [
+      { id: 'w10t1', tag: 'Business', text: 'Write 90-day post-launch plan — first customers, channels, revenue target' },
+      { id: 'w10t2', tag: 'Market',   text: 'Brief 3 warm contacts — offer them a founding customer deal for June' },
+      { id: 'w10t3', tag: 'Machine',  text: 'Stress test printer — bulk run, verify real capacity for incoming orders' },
+    ]},
+  ];
+
+  function loadPlan() { try { return JSON.parse(localStorage.getItem(PLAN_KEY)) || {}; } catch { return {}; } }
+  function savePlan(state) { localStorage.setItem(PLAN_KEY, JSON.stringify(state)); }
+
+  let planState = loadPlan();
+
+  function today() { return new Date().toISOString().slice(0, 10); }
+
+  function currentPhase() {
+    const t = today();
+    return PHASES.find(p => t >= p.start && t <= p.end) || null;
+  }
+
+  function currentWeekIndex() {
+    const t = today();
+    let cur = -1;
+    for (let i = 0; i < WEEKS.length; i++) {
+      if (t >= WEEKS[i].start) cur = i;
+    }
+    return cur;
+  }
+
+  function tagClass(tag) {
+    if (tag === 'Machine')    return 'tag-machine';
+    if (tag === 'Fusion 360') return 'tag-fusion';
+    if (tag === 'Business')   return 'tag-business';
+    if (tag === 'Market')     return 'tag-market';
+    return '';
+  }
+
+  function phaseForWeek(week) {
+    return PHASES.find(p => week.start >= p.start && week.start <= p.end) || null;
+  }
+
+  function renderPlan() {
+    const container = document.getElementById('plan');
+    container.innerHTML = '';
+
+    const totalTasks  = WEEKS.reduce((s, w) => s + w.tasks.length, 0);
+    const doneTasks   = WEEKS.reduce((s, w) => s + w.tasks.filter(t => planState[t.id]).length, 0);
+    const pct         = totalTasks ? Math.round(doneTasks / totalTasks * 100) : 0;
+    const phase       = currentPhase();
+    const curWeekIdx  = currentWeekIndex();
+
+    const wrap = document.createElement('div');
+
+    // Progress + phase
+    const hdr = document.createElement('div');
+    hdr.className = 'plan-header';
+    hdr.innerHTML = `
+      <div class="plan-progress-label">${doneTasks} of ${totalTasks} tasks complete · ${pct}%</div>
+      <div class="plan-progress-bar"><div class="plan-progress-fill" style="width:${pct}%"></div></div>
+      ${phase ? `<span class="plan-phase-badge" style="background:${phase.color}">${phase.label}</span>` : '<span class="plan-phase-badge" style="background:#94a3b8">No active phase</span>'}
+    `;
+    wrap.appendChild(hdr);
+
+    // Milestones
+    const msRow = document.createElement('div');
+    msRow.className = 'milestones';
+    const t = today();
+    MILESTONES.forEach(m => {
+      const isDone   = t > m.date;
+      const isActive = t === m.date;
+      const el = document.createElement('div');
+      el.className = `milestone${isDone ? ' done' : isActive ? ' active' : ''}`;
+      el.innerHTML = `
+        <div class="milestone-date">${m.date.slice(5).replace('-', ' ').replace('04','Apr').replace('05','May').replace('06','Jun')}</div>
+        <div class="milestone-label">${m.label}</div>
+        <div class="milestone-status">${isDone ? '✓ Done' : isActive ? '→ Today' : 'Pending'}</div>
+      `;
+      msRow.appendChild(el);
+    });
+    wrap.appendChild(msRow);
+
+    // Weeks
+    WEEKS.forEach((week, idx) => {
+      const isCurrent = idx === curWeekIdx;
+      const wPhase    = phaseForWeek(week);
+
+      const card = document.createElement('div');
+      card.className = `week-card${isCurrent ? ' current' : ''}`;
+
+      const wHeader = document.createElement('div');
+      wHeader.className = 'week-header';
+      wHeader.innerHTML = `
+        <div class="week-header-left">
+          <div class="week-phase-dot" style="background:${wPhase ? wPhase.color : '#cbd5e1'}"></div>
+          <div class="week-title">${week.label}</div>
+          ${isCurrent ? '<span class="week-current-badge">This week</span>' : ''}
+        </div>
+        <div style="font-size:0.75rem;color:#94a3b8">${week.tasks.filter(t => planState[t.id]).length}/${week.tasks.length}</div>
+      `;
+      card.appendChild(wHeader);
+
+      const taskList = document.createElement('div');
+      taskList.className = 'week-tasks';
+
+      week.tasks.forEach(task => {
+        const checked = !!planState[task.id];
+        const row = document.createElement('div');
+        row.className = `task-row${checked ? ' checked' : ''}`;
+        row.innerHTML = `
+          <input type="checkbox" class="task-checkbox" id="${task.id}" ${checked ? 'checked' : ''}>
+          <span class="task-tag ${tagClass(task.tag)}">${task.tag}</span>
+          <label class="task-text" for="${task.id}">${task.text}</label>
+        `;
+        row.querySelector('.task-checkbox').addEventListener('change', e => {
+          planState[task.id] = e.target.checked;
+          savePlan(planState);
+          renderPlan();
+        });
+        taskList.appendChild(row);
+      });
+
+      card.appendChild(taskList);
+      wrap.appendChild(card);
+    });
+
+    container.appendChild(wrap);
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  // VIEW TOGGLE
+  // ═══════════════════════════════════════════════════════════
+
+  let currentView = localStorage.getItem('kanban_view') || 'boards';
+
+  function switchView(view) {
+    currentView = view;
+    localStorage.setItem('kanban_view', view);
+    document.getElementById('app').style.display  = view === 'boards' ? '' : 'none';
+    document.getElementById('plan').style.display = view === 'plan'   ? '' : 'none';
+    document.querySelectorAll('.view-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.view === view));
+    if (view === 'plan') renderPlan();
+  }
+
+  // Initial render
+  renderAll();
+  switchView(currentView);
+
+  // ═══════════════════════════════════════════════════════════
+  // PIN
+  // ═══════════════════════════════════════════════════════════
+
+  const PIN_HASH    = '0572f0f48c9d4da7f59ccfff270df8a46297128f367248c5319ffe5b16e2f3ad';
   const SESSION_KEY = 'kanban_unlocked';
   let pinEntry = '';
 
@@ -803,9 +827,7 @@
   }
 
   function updateDots() {
-    for (let i = 0; i < 4; i++) {
-      document.getElementById(`d${i}`).classList.toggle('filled', i < pinEntry.length);
-    }
+    for (let i = 0; i < 4; i++) document.getElementById(`d${i}`).classList.toggle('filled', i < pinEntry.length);
   }
 
   function pinPress(digit) {
