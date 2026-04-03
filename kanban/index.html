@@ -7,91 +7,6 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    #pin-overlay {
-      position: fixed;
-      inset: 0;
-      background: #f4f5f7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
-    #pin-overlay.hidden { display: none; }
-
-    .pin-box {
-      background: #fff;
-      border-radius: 12px;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
-      width: 280px;
-    }
-
-    .pin-box h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #111;
-      margin-bottom: 0.4rem;
-    }
-
-    .pin-box p {
-      font-size: 0.875rem;
-      color: #888;
-      margin-bottom: 1.5rem;
-    }
-
-    .pin-dots {
-      display: flex;
-      justify-content: center;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .pin-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 2px solid #c1c7d0;
-      background: transparent;
-      transition: background 0.15s, border-color 0.15s;
-    }
-
-    .pin-dot.filled {
-      background: #0052cc;
-      border-color: #0052cc;
-    }
-
-    .pin-keypad {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-    }
-
-    .pin-key {
-      background: #f4f5f7;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem;
-      font-size: 1.1rem;
-      font-weight: 500;
-      cursor: pointer;
-      color: #111;
-      transition: background 0.1s;
-    }
-
-    .pin-key:hover { background: #dfe1e6; }
-    .pin-key:active { background: #c1c7d0; }
-
-    .pin-key.del { color: #e53935; font-size: 1rem; }
-
-    .pin-error {
-      color: #e53935;
-      font-size: 0.8rem;
-      margin-top: 0.75rem;
-      min-height: 1.1em;
-    }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
       background: #f4f5f7;
@@ -106,41 +21,66 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
-    header a {
-      text-decoration: none;
-      color: #888;
-      font-size: 0.875rem;
-    }
-
+    header a { text-decoration: none; color: #888; font-size: 0.875rem; }
     header a:hover { color: #111; }
+    header h1 { font-size: 1.1rem; font-weight: 600; color: #111; }
+    header .sep { color: #ccc; }
 
-    header h1 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #111;
+    .board-section {
+      padding: 1.25rem 1.5rem 0;
     }
 
-    header .sep { color: #ccc; }
+    .board-section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      margin-bottom: 0.75rem;
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      cursor: text;
+      display: inline-block;
+    }
+
+    .board-section-title:hover { background: #e0e1e5; }
+
+    .board-section-title-input {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      background: #fff;
+      border: 2px solid #0052cc;
+      border-radius: 4px;
+      padding: 0.1rem 0.35rem;
+      outline: none;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
 
     .board {
       display: flex;
       gap: 1rem;
-      padding: 1.5rem;
       overflow-x: auto;
       align-items: flex-start;
-      min-height: calc(100vh - 57px);
+      padding-bottom: 1.25rem;
     }
 
     .column {
       background: #ebecf0;
       border-radius: 10px;
-      width: 280px;
-      min-width: 280px;
+      width: 260px;
+      min-width: 260px;
       display: flex;
       flex-direction: column;
-      max-height: calc(100vh - 90px);
+      max-height: 420px;
     }
 
     .column-header {
@@ -151,7 +91,7 @@
     }
 
     .column-title {
-      font-size: 0.875rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: #5e6c84;
       text-transform: uppercase;
@@ -164,7 +104,7 @@
     .column-title:hover { background: #d0d4dc; }
 
     .column-title-input {
-      font-size: 0.875rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: #5e6c84;
       text-transform: uppercase;
@@ -174,13 +114,13 @@
       border-radius: 3px;
       padding: 0.1rem 0.25rem;
       outline: none;
-      width: 160px;
+      width: 140px;
     }
 
     .column-count {
       background: #c1c7d0;
       color: #5e6c84;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
       padding: 0.1rem 0.45rem;
       border-radius: 10px;
@@ -193,15 +133,12 @@
       min-height: 40px;
     }
 
-    .cards.drag-over {
-      background: rgba(0,0,0,0.04);
-      border-radius: 6px;
-    }
+    .cards.drag-over { background: rgba(0,0,0,0.04); border-radius: 6px; }
 
     .card {
       background: #fff;
       border-radius: 6px;
-      padding: 0.65rem 0.75rem;
+      padding: 0.6rem 0.7rem;
       margin-bottom: 0.5rem;
       box-shadow: 0 1px 2px rgba(0,0,0,0.1);
       cursor: grab;
@@ -211,14 +148,10 @@
     }
 
     .card:active { cursor: grabbing; }
-
-    .card.dragging {
-      opacity: 0.5;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
+    .card.dragging { opacity: 0.5; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
     .card-text {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       line-height: 1.4;
       color: #172b4d;
       margin-right: 1.25rem;
@@ -231,7 +164,7 @@
     .card-text:hover { background: #f0f0f0; }
 
     .card-text-input {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       line-height: 1.4;
       color: #172b4d;
       font-family: inherit;
@@ -259,16 +192,9 @@
 
     .card-delete:hover { color: #e53935; }
 
-    .add-card-area {
-      padding: 0.5rem;
-    }
+    .add-card-area { padding: 0.5rem; }
 
-    .add-card-form {
-      display: none;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
+    .add-card-form { display: none; flex-direction: column; gap: 0.5rem; }
     .add-card-form.open { display: flex; }
 
     .add-card-form textarea {
@@ -277,24 +203,20 @@
       border-radius: 6px;
       padding: 0.5rem;
       font-family: inherit;
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       resize: none;
       outline: none;
-      min-height: 70px;
+      min-height: 64px;
     }
 
-    .add-card-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
+    .add-card-actions { display: flex; align-items: center; gap: 0.5rem; }
 
     .btn-add-confirm {
       background: #0052cc;
       color: #fff;
       border: none;
       border-radius: 4px;
-      padding: 0.4rem 0.85rem;
+      padding: 0.35rem 0.8rem;
       font-size: 0.875rem;
       font-weight: 500;
       cursor: pointer;
@@ -322,16 +244,13 @@
       color: #5e6c84;
       font-size: 0.875rem;
       cursor: pointer;
-      padding: 0.4rem 0.5rem;
+      padding: 0.35rem 0.5rem;
       border-radius: 4px;
       width: 100%;
       text-align: left;
     }
 
-    .btn-add-card:hover {
-      background: #d0d4dc;
-      color: #111;
-    }
+    .btn-add-card:hover { background: #d0d4dc; color: #111; }
 
     .drop-placeholder {
       height: 4px;
@@ -342,6 +261,63 @@
     }
 
     .drop-placeholder.visible { display: block; }
+
+    /* PIN overlay */
+    #pin-overlay {
+      position: fixed;
+      inset: 0;
+      background: #f4f5f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    #pin-overlay.hidden { display: none; }
+
+    .pin-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+      width: 280px;
+    }
+
+    .pin-box h2 { font-size: 1.1rem; font-weight: 600; color: #111; margin-bottom: 0.4rem; }
+    .pin-box p { font-size: 0.875rem; color: #888; margin-bottom: 1.5rem; }
+
+    .pin-dots { display: flex; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem; }
+
+    .pin-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid #c1c7d0;
+      background: transparent;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .pin-dot.filled { background: #0052cc; border-color: #0052cc; }
+
+    .pin-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+
+    .pin-key {
+      background: #f4f5f7;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      color: #111;
+      transition: background 0.1s;
+    }
+
+    .pin-key:hover { background: #dfe1e6; }
+    .pin-key:active { background: #c1c7d0; }
+    .pin-key.del { color: #e53935; font-size: 1rem; }
+
+    .pin-error { color: #e53935; font-size: 0.8rem; margin-top: 0.75rem; min-height: 1.1em; }
   </style>
 </head>
 <body>
@@ -380,73 +356,109 @@
   <h1>Kanban</h1>
 </header>
 
-<div class="board" id="board"></div>
+<div id="app"></div>
 
 <script>
   const COLUMNS = [
-    { id: 'todo',        label: 'To Do' },
-    { id: 'inprogress',  label: 'In Progress' },
-    { id: 'review',      label: 'Review' },
-    { id: 'blocked',     label: 'Blocked / Waiting' },
-    { id: 'done',        label: 'Done' },
+    { id: 'todo',       label: 'To Do' },
+    { id: 'inprogress', label: 'In Progress' },
+    { id: 'review',     label: 'Review' },
+    { id: 'blocked',    label: 'Blocked / Waiting' },
+    { id: 'done',       label: 'Done' },
   ];
 
-  const STORAGE_KEY = 'kanban_data_v1';
-  const LABELS_KEY  = 'kanban_labels_v1';
+  const COL_DEFAULTS = Object.fromEntries(COLUMNS.map(c => [c.id, c.label]));
 
-  function loadLabels() {
-    try { return JSON.parse(localStorage.getItem(LABELS_KEY)) || {}; } catch { return {}; }
+  const BOARDS = [
+    { id: 'daily',   label: 'Daily' },
+    { id: 'monthly', label: 'Monthly' },
+    { id: '3month',  label: '3 Month' },
+  ];
+
+  const BOARD_LABELS_KEY = 'kanban_board_labels_v1';
+  function loadBoardLabels() {
+    try { return JSON.parse(localStorage.getItem(BOARD_LABELS_KEY)) || {}; } catch { return {}; }
   }
+  const boardLabels = loadBoardLabels();
+  BOARDS.forEach(b => { if (boardLabels[b.id]) b.label = boardLabels[b.id]; });
 
-  let customLabels = loadLabels();
+  function storageKey(boardId)  { return `kanban_data_v1_${boardId}`; }
+  function labelsKey(boardId)   { return `kanban_labels_v1_${boardId}`; }
 
-  // Apply saved labels to COLUMNS
-  COLUMNS.forEach(col => {
-    if (customLabels[col.id]) col.label = customLabels[col.id];
-  });
-
-  function loadData() {
+  function loadData(boardId) {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = localStorage.getItem(storageKey(boardId));
       return raw ? JSON.parse(raw) : defaultData();
     } catch { return defaultData(); }
   }
 
   function defaultData() {
-    return {
-      todo:       [{ id: uid(), text: 'Welcome! Click "+ Add card" to create tasks.' }],
-      inprogress: [],
-      review:     [],
-      done:       [],
-    };
+    return { todo: [], inprogress: [], review: [], blocked: [], done: [] };
   }
 
-  function saveData(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  function saveData(boardId, data) {
+    localStorage.setItem(storageKey(boardId), JSON.stringify(data));
   }
 
-  function uid() {
-    return Math.random().toString(36).slice(2, 10);
+  function loadLabels(boardId) {
+    try { return JSON.parse(localStorage.getItem(labelsKey(boardId))) || {}; } catch { return {}; }
   }
 
-  let data = loadData();
-  let dragState = null; // { cardId, fromCol }
+  function saveLabels(boardId, labels) {
+    localStorage.setItem(labelsKey(boardId), JSON.stringify(labels));
+  }
 
-  function render() {
-    const board = document.getElementById('board');
-    board.innerHTML = '';
+  function uid() { return Math.random().toString(36).slice(2, 10); }
+
+  // allData[boardId] = { todo: [], inprogress: [], ... }
+  // allLabels[boardId] = { colId: customLabel, ... }
+  const allData   = {};
+  const allLabels = {};
+  BOARDS.forEach(b => {
+    allData[b.id]   = loadData(b.id);
+    allLabels[b.id] = loadLabels(b.id);
+  });
+
+  let dragState = null; // { boardId, cardId, fromCol }
+
+  // ── Render ─────────────────────────────────────────────────
+
+  function renderAll() {
+    const app = document.getElementById('app');
+    app.innerHTML = '';
+    BOARDS.forEach(board => app.appendChild(buildSection(board)));
+  }
+
+  function buildSection(board) {
+    const section = document.createElement('div');
+    section.className = 'board-section';
+
+    const title = document.createElement('div');
+    title.className = 'board-section-title';
+    title.textContent = board.label;
+    title.title = 'Click to rename';
+    title.addEventListener('click', () => startEditBoardTitle(board, title));
+    section.appendChild(title);
+
+    const boardEl = document.createElement('div');
+    boardEl.className = 'board';
+    boardEl.dataset.board = board.id;
+
     COLUMNS.forEach(col => {
-      board.appendChild(buildColumn(col));
+      const label = allLabels[board.id][col.id] || COL_DEFAULTS[col.id];
+      boardEl.appendChild(buildColumn(board.id, { ...col, label }));
     });
-    updateCounts();
+
+    section.appendChild(boardEl);
+    return section;
   }
 
-  function buildColumn(col) {
+  function buildColumn(boardId, col) {
+    const data  = allData[boardId];
     const cards = data[col.id] || [];
 
     const wrap = document.createElement('div');
     wrap.className = 'column';
-    wrap.dataset.col = col.id;
 
     // Header
     const header = document.createElement('div');
@@ -456,131 +468,209 @@
     titleEl.className = 'column-title';
     titleEl.textContent = col.label;
     titleEl.title = 'Click to rename';
-    titleEl.addEventListener('click', () => startEditTitle(col, titleEl));
+    titleEl.addEventListener('click', () => startEditTitle(boardId, col, titleEl));
 
     const countEl = document.createElement('span');
     countEl.className = 'column-count';
-    countEl.id = `count-${col.id}`;
+    countEl.id = `count-${boardId}-${col.id}`;
     countEl.textContent = cards.length;
 
     header.appendChild(titleEl);
     header.appendChild(countEl);
     wrap.appendChild(header);
 
-    // Cards container
+    // Cards
     const cardsEl = document.createElement('div');
     cardsEl.className = 'cards';
-    cardsEl.dataset.col = col.id;
+    cardsEl.dataset.board = boardId;
+    cardsEl.dataset.col   = col.id;
 
-    cards.forEach(card => {
-      cardsEl.appendChild(buildCard(card, col.id));
-    });
+    cards.forEach(card => cardsEl.appendChild(buildCard(boardId, card, col.id)));
 
-    // Drop placeholder at end
-    const placeholder = document.createElement('div');
-    placeholder.className = 'drop-placeholder';
-    placeholder.dataset.placeholder = 'end';
-    cardsEl.appendChild(placeholder);
+    const ph = document.createElement('div');
+    ph.className = 'drop-placeholder';
+    ph.dataset.placeholder = 'end';
+    cardsEl.appendChild(ph);
 
-    // Drag-over events on the cards container
-    cardsEl.addEventListener('dragover', e => onDragOver(e, col.id));
-    cardsEl.addEventListener('dragleave', e => onDragLeave(e, col.id));
-    cardsEl.addEventListener('drop', e => onDrop(e, col.id));
+    cardsEl.addEventListener('dragover',  e => onDragOver(e, boardId, col.id));
+    cardsEl.addEventListener('dragleave', e => onDragLeave(e));
+    cardsEl.addEventListener('drop',      e => onDrop(e, boardId, col.id));
 
     wrap.appendChild(cardsEl);
 
-    // Add card area
+    // Add card area (To Do only)
     const addArea = document.createElement('div');
     addArea.className = 'add-card-area';
 
     const form = document.createElement('div');
     form.className = 'add-card-form';
-    form.id = `form-${col.id}`;
+    form.id = `form-${boardId}-${col.id}`;
     form.innerHTML = `
-      <textarea placeholder="Enter card title…" id="input-${col.id}"></textarea>
+      <textarea placeholder="Enter card title…" id="input-${boardId}-${col.id}"></textarea>
       <div class="add-card-actions">
         <button class="btn-add-confirm">Add card</button>
         <button class="btn-add-cancel" title="Cancel">✕</button>
       </div>
     `;
-    form.querySelector('.btn-add-confirm').addEventListener('click', () => addCard(col.id));
-    form.querySelector('.btn-add-cancel').addEventListener('click', () => closeForm(col.id));
+    form.querySelector('.btn-add-confirm').addEventListener('click', () => addCard(boardId, col.id));
+    form.querySelector('.btn-add-cancel').addEventListener('click', () => closeForm(boardId, col.id));
     form.querySelector('textarea').addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); addCard(col.id); }
-      if (e.key === 'Escape') closeForm(col.id);
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); addCard(boardId, col.id); }
+      if (e.key === 'Escape') closeForm(boardId, col.id);
     });
-
     addArea.appendChild(form);
 
     if (col.id === 'todo') {
       const addBtn = document.createElement('button');
       addBtn.className = 'btn-add-card';
-      addBtn.id = `addbtn-${col.id}`;
-      addBtn.innerHTML = '+ Add card';
-      addBtn.addEventListener('click', () => openForm(col.id));
+      addBtn.id = `addbtn-${boardId}-${col.id}`;
+      addBtn.textContent = '+ Add card';
+      addBtn.addEventListener('click', () => openForm(boardId, col.id));
       addArea.appendChild(addBtn);
     }
 
     wrap.appendChild(addArea);
-
     return wrap;
   }
 
-  function buildCard(card, colId) {
+  function buildCard(boardId, card, colId) {
     const el = document.createElement('div');
     el.className = 'card';
     el.draggable = true;
     el.dataset.id = card.id;
-    el.dataset.col = colId;
-    el.innerHTML = `
-      <div class="card-text">${escHtml(card.text)}</div>
-      <button class="card-delete" title="Delete">✕</button>
-    `;
-    el.querySelector('.card-delete').addEventListener('click', () => deleteCard(card.id, colId));
-    el.querySelector('.card-text').addEventListener('click', () => startEditCard(card, colId, el));
-    el.addEventListener('dragstart', e => onDragStart(e, card.id, colId));
-    el.addEventListener('dragend', onDragEnd);
-    return el;
-  }
 
-  function escHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    const textEl = document.createElement('div');
+    textEl.className = 'card-text';
+    textEl.textContent = card.text;
+    textEl.addEventListener('click', () => startEditCard(boardId, card, colId, el));
+
+    const delBtn = document.createElement('button');
+    delBtn.className = 'card-delete';
+    delBtn.title = 'Delete';
+    delBtn.textContent = '✕';
+    delBtn.addEventListener('click', () => deleteCard(boardId, card.id, colId));
+
+    el.appendChild(textEl);
+    el.appendChild(delBtn);
+    el.addEventListener('dragstart', e => onDragStart(e, boardId, card.id, colId));
+    el.addEventListener('dragend',   onDragEnd);
+    return el;
   }
 
   // ── Forms ──────────────────────────────────────────────────
 
-  function openForm(colId) {
-    document.getElementById(`form-${colId}`).classList.add('open');
-    document.getElementById(`addbtn-${colId}`).style.display = 'none';
-    document.getElementById(`input-${colId}`).focus();
+  function openForm(boardId, colId) {
+    document.getElementById(`form-${boardId}-${colId}`).classList.add('open');
+    const btn = document.getElementById(`addbtn-${boardId}-${colId}`);
+    if (btn) btn.style.display = 'none';
+    document.getElementById(`input-${boardId}-${colId}`).focus();
   }
 
-  function closeForm(colId) {
-    const form = document.getElementById(`form-${colId}`);
-    form.classList.remove('open');
-    document.getElementById(`input-${colId}`).value = '';
-    document.getElementById(`addbtn-${colId}`).style.display = '';
+  function closeForm(boardId, colId) {
+    document.getElementById(`form-${boardId}-${colId}`).classList.remove('open');
+    document.getElementById(`input-${boardId}-${colId}`).value = '';
+    const btn = document.getElementById(`addbtn-${boardId}-${colId}`);
+    if (btn) btn.style.display = '';
   }
 
-  function addCard(colId) {
-    const input = document.getElementById(`input-${colId}`);
-    const text = input.value.trim();
+  function addCard(boardId, colId) {
+    const input = document.getElementById(`input-${boardId}-${colId}`);
+    const text  = input.value.trim();
     if (!text) return;
-    data[colId].push({ id: uid(), text });
-    saveData(data);
-    render();
+    allData[boardId][colId].push({ id: uid(), text });
+    saveData(boardId, allData[boardId]);
+    renderAll();
   }
 
-  function deleteCard(cardId, colId) {
-    data[colId] = data[colId].filter(c => c.id !== cardId);
-    saveData(data);
-    render();
+  function deleteCard(boardId, cardId, colId) {
+    allData[boardId][colId] = allData[boardId][colId].filter(c => c.id !== cardId);
+    saveData(boardId, allData[boardId]);
+    renderAll();
+  }
+
+  // ── Inline edit ────────────────────────────────────────────
+
+  function startEditCard(boardId, card, colId, cardEl) {
+    const textEl   = cardEl.querySelector('.card-text');
+    const textarea = document.createElement('textarea');
+    textarea.className = 'card-text-input';
+    textarea.value = card.text;
+    textarea.rows  = 2;
+    textEl.replaceWith(textarea);
+    cardEl.draggable = false;
+    textarea.focus();
+    textarea.select();
+
+    function commit() {
+      const val = textarea.value.trim();
+      if (val) {
+        const idx = allData[boardId][colId].findIndex(c => c.id === card.id);
+        if (idx !== -1) allData[boardId][colId][idx].text = val;
+        saveData(boardId, allData[boardId]);
+      }
+      renderAll();
+    }
+
+    textarea.addEventListener('blur', commit);
+    textarea.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); textarea.blur(); }
+      if (e.key === 'Escape') { textarea.removeEventListener('blur', commit); renderAll(); }
+    });
+  }
+
+  function startEditBoardTitle(board, titleEl) {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'board-section-title-input';
+    input.value = board.label;
+    titleEl.replaceWith(input);
+    input.select();
+
+    function commit() {
+      const val = input.value.trim();
+      if (val) {
+        board.label = val;
+        boardLabels[board.id] = val;
+        localStorage.setItem(BOARD_LABELS_KEY, JSON.stringify(boardLabels));
+      }
+      renderAll();
+    }
+
+    input.addEventListener('blur', commit);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+      if (e.key === 'Escape') { input.removeEventListener('blur', commit); renderAll(); }
+    });
+  }
+
+  function startEditTitle(boardId, col, titleEl) {
+    const input = document.createElement('input');
+    input.type  = 'text';
+    input.className = 'column-title-input';
+    input.value = col.label;
+    titleEl.replaceWith(input);
+    input.select();
+
+    function commit() {
+      const val = input.value.trim();
+      if (val) {
+        allLabels[boardId][col.id] = val;
+        saveLabels(boardId, allLabels[boardId]);
+      }
+      renderAll();
+    }
+
+    input.addEventListener('blur', commit);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+      if (e.key === 'Escape') { input.removeEventListener('blur', commit); renderAll(); }
+    });
   }
 
   // ── Drag & Drop ────────────────────────────────────────────
 
-  function onDragStart(e, cardId, colId) {
-    dragState = { cardId, fromCol: colId };
+  function onDragStart(e, boardId, cardId, colId) {
+    dragState = { boardId, cardId, fromCol: colId };
     e.dataTransfer.effectAllowed = 'move';
     setTimeout(() => {
       const el = document.querySelector(`.card[data-id="${cardId}"]`);
@@ -595,42 +685,32 @@
     dragState = null;
   }
 
-  function onDragOver(e, colId) {
-    if (!dragState) return;
+  function onDragOver(e, boardId, colId) {
+    if (!dragState || dragState.boardId !== boardId) return;
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
 
     const cardsEl = e.currentTarget;
     cardsEl.classList.add('drag-over');
 
-    // Find insertion point
     const cards = [...cardsEl.querySelectorAll('.card:not(.dragging)')];
     let insertBefore = null;
-
     for (const card of cards) {
       const rect = card.getBoundingClientRect();
-      if (e.clientY < rect.top + rect.height / 2) {
-        insertBefore = card;
-        break;
-      }
+      if (e.clientY < rect.top + rect.height / 2) { insertBefore = card; break; }
     }
 
-    // Show placeholder
     document.querySelectorAll('.drop-placeholder.visible').forEach(el => el.classList.remove('visible'));
     if (insertBefore) {
-      const ph = document.createElement('div');
-      // Use existing placeholder or show it before the card
-      const existPh = insertBefore.previousElementSibling;
-      if (existPh && existPh.classList.contains('drop-placeholder')) {
-        existPh.classList.add('visible');
-      }
+      const prev = insertBefore.previousElementSibling;
+      if (prev && prev.classList.contains('drop-placeholder')) prev.classList.add('visible');
     } else {
       const endPh = cardsEl.querySelector('[data-placeholder="end"]');
       if (endPh) endPh.classList.add('visible');
     }
   }
 
-  function onDragLeave(e, colId) {
+  function onDragLeave(e) {
     const cardsEl = e.currentTarget;
     if (!cardsEl.contains(e.relatedTarget)) {
       cardsEl.classList.remove('drag-over');
@@ -638,99 +718,32 @@
     }
   }
 
-  function onDrop(e, colId) {
-    if (!dragState) return;
+  function onDrop(e, boardId, colId) {
+    if (!dragState || dragState.boardId !== boardId) return;
     e.preventDefault();
 
     const { cardId, fromCol } = dragState;
     const cardsEl = e.currentTarget;
-
-    // Find where to insert
-    const cards = [...cardsEl.querySelectorAll('.card:not(.dragging)')];
+    const cards   = [...cardsEl.querySelectorAll('.card:not(.dragging)')];
     let insertIndex = cards.length;
 
     for (let i = 0; i < cards.length; i++) {
       const rect = cards[i].getBoundingClientRect();
-      if (e.clientY < rect.top + rect.height / 2) {
-        insertIndex = i;
-        break;
-      }
+      if (e.clientY < rect.top + rect.height / 2) { insertIndex = i; break; }
     }
 
-    // Move card
-    const cardObj = data[fromCol].find(c => c.id === cardId);
+    const cardObj = allData[boardId][fromCol].find(c => c.id === cardId);
     if (!cardObj) return;
-    data[fromCol] = data[fromCol].filter(c => c.id !== cardId);
-    data[colId].splice(insertIndex, 0, cardObj);
-
-    saveData(data);
-    render();
+    allData[boardId][fromCol] = allData[boardId][fromCol].filter(c => c.id !== cardId);
+    allData[boardId][colId].splice(insertIndex, 0, cardObj);
+    saveData(boardId, allData[boardId]);
+    renderAll();
   }
 
-  function startEditCard(card, colId, cardEl) {
-    const textEl = cardEl.querySelector('.card-text');
-    const textarea = document.createElement('textarea');
-    textarea.className = 'card-text-input';
-    textarea.value = card.text;
-    textarea.rows = 2;
-    textEl.replaceWith(textarea);
-    cardEl.draggable = false;
-    textarea.focus();
-    textarea.select();
-
-    function commit() {
-      const val = textarea.value.trim();
-      if (val) {
-        const idx = data[colId].findIndex(c => c.id === card.id);
-        if (idx !== -1) data[colId][idx].text = val;
-        saveData(data);
-      }
-      render();
-    }
-
-    textarea.addEventListener('blur', commit);
-    textarea.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); textarea.blur(); }
-      if (e.key === 'Escape') { textarea.removeEventListener('blur', commit); render(); }
-    });
-  }
-
-  function startEditTitle(col, titleEl) {
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.className = 'column-title-input';
-    input.value = col.label;
-    titleEl.replaceWith(input);
-    input.select();
-
-    function commit() {
-      const val = input.value.trim();
-      if (val) {
-        col.label = val;
-        customLabels[col.id] = val;
-        localStorage.setItem(LABELS_KEY, JSON.stringify(customLabels));
-      }
-      render();
-    }
-
-    input.addEventListener('blur', commit);
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
-      if (e.key === 'Escape') { input.removeEventListener('blur', commit); render(); }
-    });
-  }
-
-  function updateCounts() {
-    COLUMNS.forEach(col => {
-      const el = document.getElementById(`count-${col.id}`);
-      if (el) el.textContent = (data[col.id] || []).length;
-    });
-  }
-
-  render();
+  renderAll();
 
   // ── PIN protection ─────────────────────────────────────────
-  const PIN_HASH = '0572f0f48c9d4da7f59ccfff270df8a46297128f367248c5319ffe5b16e2f3ad';
+  const PIN_HASH   = '0572f0f48c9d4da7f59ccfff270df8a46297128f367248c5319ffe5b16e2f3ad';
   const SESSION_KEY = 'kanban_unlocked';
   let pinEntry = '';
 
@@ -770,14 +783,12 @@
     }
   }
 
-  // Check session on load
   if (sessionStorage.getItem(SESSION_KEY) !== '1') {
     document.getElementById('pin-overlay').classList.remove('hidden');
   } else {
     document.getElementById('pin-overlay').classList.add('hidden');
   }
 
-  // Keyboard support
   document.addEventListener('keydown', e => {
     if (document.getElementById('pin-overlay').classList.contains('hidden')) return;
     if (e.key >= '0' && e.key <= '9') pinPress(e.key);
