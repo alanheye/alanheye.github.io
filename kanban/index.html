@@ -298,7 +298,7 @@
   function labelsKey(boardId)  { return `kanban_labels_v1_${boardId}`; }
 
   function loadData(boardId) {
-    try { const raw = localStorage.getItem(storageKey(boardId)); return raw ? JSON.parse(raw) : defaultData(); }
+    try { const raw = localStorage.getItem(storageKey(boardId)); return { ...defaultData(), ...(raw ? JSON.parse(raw) : {}) }; }
     catch { return defaultData(); }
   }
   function defaultData() { return { todo: [], inprogress: [], review: [], blocked: [], done: [] }; }
