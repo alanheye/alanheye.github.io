@@ -312,6 +312,7 @@
   BOARDS.forEach(b => { allData[b.id] = loadData(b.id); allLabels[b.id] = loadLabels(b.id); });
 
   let dragState = null;
+  let scrollRaf  = null;
 
   function renderAll() {
     const app = document.getElementById('app');
@@ -547,6 +548,7 @@
   }
 
   function onDragEnd() {
+    if (scrollRaf) { cancelAnimationFrame(scrollRaf); scrollRaf = null; }
     document.querySelectorAll('.card.dragging').forEach(el => el.classList.remove('dragging'));
     document.querySelectorAll('.drop-placeholder.visible').forEach(el => el.classList.remove('visible'));
     document.querySelectorAll('.cards.drag-over').forEach(el => el.classList.remove('drag-over'));
@@ -557,6 +559,23 @@
     if (!dragState || dragState.boardId !== boardId) return;
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
+
+    // Auto-scroll the board row when dragging near its edges
+    const boardEl = e.currentTarget.closest('.board');
+    if (boardEl) {
+      if (scrollRaf) { cancelAnimationFrame(scrollRaf); scrollRaf = null; }
+      const rect  = boardEl.getBoundingClientRect();
+      const edge  = 80;
+      const speed = 14;
+      if (e.clientX < rect.left + edge) {
+        const scroll = () => { boardEl.scrollLeft -= speed; scrollRaf = requestAnimationFrame(scroll); };
+        scrollRaf = requestAnimationFrame(scroll);
+      } else if (e.clientX > rect.right - edge) {
+        const scroll = () => { boardEl.scrollLeft += speed; scrollRaf = requestAnimationFrame(scroll); };
+        scrollRaf = requestAnimationFrame(scroll);
+      }
+    }
+
     const cardsEl = e.currentTarget;
     cardsEl.classList.add('drag-over');
     const cards = [...cardsEl.querySelectorAll('.card:not(.dragging)')];

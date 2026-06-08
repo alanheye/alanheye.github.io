@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThreePrint — Product Ideas</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --orange: #e8451a;
+  --navy: #1c2340;
+  --bg: #f5f3ef;
+  --card: #faf9f7;
+  --border: #e8e5e0;
+  --text: #1c2340;
+  --muted: #888;
+  --light: #bbb;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 0 0 60px;
+}
+
+header {
+  background: var(--navy);
+  padding: 28px 32px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-mark { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.wordmark { font-family:'Montserrat',sans-serif; font-weight:700; font-size:22px; line-height:1; }
+.wordmark .three { color: var(--orange); }
+.wordmark .print { color: #fff; }
+.header-sub { margin-left:auto; font-size:12px; color:rgba(255,255,255,0.4); letter-spacing:1px; text-transform:uppercase; }
+
+.hero { background:var(--navy); padding:0 32px 32px; border-bottom:3px solid var(--orange); }
+.hero h1 { font-family:'Montserrat',sans-serif; font-size:32px; font-weight:900; color:#fff; line-height:1.1; margin-bottom:8px; }
+.hero h1 span { color:var(--orange); }
+.hero p { font-size:13px; color:rgba(255,255,255,0.5); font-weight:300; }
+
+.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border-bottom:1px solid var(--border); }
+.stat { background:var(--card); padding:16px 20px; text-align:center; }
+.stat-val { font-family:'Montserrat',sans-serif; font-size:28px; font-weight:700; color:var(--orange); line-height:1; }
+.stat-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-top:4px; }
+
+.controls {
+  padding: 20px 32px 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.controls-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-right:4px; }
+.filter-btn {
+  font-size:12px; font-family:'Inter',sans-serif; padding:6px 14px;
+  border-radius:20px; border:1px solid var(--border); background:var(--card);
+  color:var(--muted); cursor:pointer; transition:all 0.15s; font-weight:400;
+}
+.filter-btn:hover { border-color:var(--orange); color:var(--orange); }
+.filter-btn.active { background:var(--orange); color:#fff; border-color:var(--orange); font-weight:500; }
+
+.count-line { padding:14px 32px 0; font-size:12px; color:var(--muted); }
+.count-line strong { color:var(--text); }
+
+.list { padding:12px 32px 0; display:flex; flex-direction:column; gap:2px; }
+
+/* Section divider */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 0 8px;
+}
+.section-divider-line { flex:1; height:1px; background:var(--border); }
+.section-divider-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.section-divider-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--orange); flex-shrink: 0;
+}
+
+.item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.item:hover { border-color:#d0cdc8; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+.item.hero-product { border-left:3px solid var(--orange); }
+.item.now { border-left:3px solid #2e7d32; }
+.item.outsource { border-left:3px solid #1565c0; }
+.item.pipeline { border-left:3px solid #c08040; }
+.item.b2b-item { border-left:3px solid #7b1fa2; }
+.item.makerworld { border-left:3px solid #0097a7; }
+
+.phase-badge {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  padding: 4px 0;
+}
+.phase-badge.now-badge { color: #2e7d32; }
+.phase-badge.outsource-badge { color: #1565c0; }
+.phase-badge.hero-badge { color: var(--orange); }
+.phase-badge.pipeline-badge { color: #c08040; }
+.phase-badge.b2b-badge { color: #7b1fa2; }
+.phase-badge.mw-badge { color: #0097a7; }
+
+.phase-icon { font-size: 18px; text-align: center; }
+
+.item-body { min-width:0; }
+.item-name { font-size:14px; font-weight:500; color:var(--text); margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.item-meta { display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-bottom:4px; }
+.item-note { font-size:11px; color:var(--muted); font-weight:300; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+.tag { font-size:10px; padding:2px 7px; border-radius:10px; font-weight:500; white-space:nowrap; }
+.tag-kd   { background:#fff3e0; color:#b74500; border:1px solid #ffe0b2; }
+.tag-ams  { background:#e8f5e9; color:#2e7d32; border:1px solid #c8e6c9; }
+.tag-b2b  { background:#e3f2fd; color:#1565c0; border:1px solid #bbdefb; }
+.tag-warn { background:#fce4ec; color:#b71c1c; border:1px solid #f8bbd9; }
+.tag-out  { background:#ede7f6; color:#4527a0; border:1px solid #d1c4e9; }
+.tag-mw   { background:#e0f7fa; color:#006064; border:1px solid #b2ebf2; }
+.tag-hero { background:#fff8e1; color:#e65100; border:1px solid #ffe0b2; }
+.tag-dbs  { background:#f3e5f5; color:#6a1b9a; border:1px solid #ce93d8; }
+
+.item-right { text-align:right; flex-shrink:0; }
+.item-price { font-family:'Montserrat',sans-serif; font-size:15px; font-weight:700; color:var(--text); white-space:nowrap; }
+.item-per { font-size:10px; color:var(--light); text-transform:uppercase; letter-spacing:0.5px; }
+.item-timing { font-size:11px; color:var(--muted); margin-top:2px; }
+
+footer {
+  margin-top:40px; padding:20px 32px;
+  border-top:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.footer-brand { font-family:'Montserrat',sans-serif; font-size:13px; font-weight:700; color:var(--navy); }
+.footer-brand span { color:var(--orange); }
+.footer-note { font-size:11px; color:var(--light); }
+
+@media (max-width:600px) {
+  header,.hero,.controls,.count-line,.list,footer { padding-left:16px; padding-right:16px; }
+  .stats { grid-template-columns:repeat(2,1fr); }
+  .hero h1 { font-size:24px; }
+  .item { grid-template-columns:40px 1fr auto; gap:10px; }
+  .item-name { font-size:13px; }
+}
+
+/* PIN overlay */
+#pin-overlay { position: fixed; inset: 0; background: #1e293b; display: flex; align-items: center; justify-content: center; z-index: 9999; }
+#pin-overlay.hidden { display: none; }
+
+.pin-box { background: #fff; border-radius: 16px; padding: 2.5rem 2rem; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); width: 280px; }
+.pin-box h2 { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 0.4rem; }
+.pin-box p  { font-size: 0.875rem; color: #94a3b8; margin-bottom: 1.5rem; }
+
+.pin-dots { display: flex; justify-content: center; gap: 0.75rem; margin-bottom: 1.5rem; }
+.pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #cbd5e1; background: transparent; transition: background 0.15s, border-color 0.15s; }
+.pin-dot.filled { background: #6366f1; border-color: #6366f1; }
+
+.pin-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+.pin-key { background: #f1f5f9; border: none; border-radius: 10px; padding: 0.8rem; font-size: 1.1rem; font-weight: 500; cursor: pointer; color: #1e293b; transition: background 0.1s; }
+.pin-key:hover  { background: #e2e8f0; }
+.pin-key:active { background: #cbd5e1; }
+.pin-key.del    { color: #ef4444; font-size: 1rem; }
+
+.pin-error { color: #ef4444; font-size: 0.8rem; margin-top: 0.75rem; min-height: 1.1em; }
+</style>
+</head>
+<body>
+
+<div id="pin-overlay">
+  <div class="pin-box">
+    <h2>Alan He</h2>
+    <p>Enter your 4-digit PIN</p>
+    <div class="pin-dots">
+      <div class="pin-dot" id="d0"></div>
+      <div class="pin-dot" id="d1"></div>
+      <div class="pin-dot" id="d2"></div>
+      <div class="pin-dot" id="d3"></div>
+    </div>
+    <div class="pin-keypad">
+      <button class="pin-key" onclick="pinPress('1')">1</button>
+      <button class="pin-key" onclick="pinPress('2')">2</button>
+      <button class="pin-key" onclick="pinPress('3')">3</button>
+      <button class="pin-key" onclick="pinPress('4')">4</button>
+      <button class="pin-key" onclick="pinPress('5')">5</button>
+      <button class="pin-key" onclick="pinPress('6')">6</button>
+      <button class="pin-key" onclick="pinPress('7')">7</button>
+      <button class="pin-key" onclick="pinPress('8')">8</button>
+      <button class="pin-key" onclick="pinPress('9')">9</button>
+      <button class="pin-key del" onclick="pinDel()">⌫</button>
+      <button class="pin-key" onclick="pinPress('0')">0</button>
+      <button class="pin-key" style="visibility:hidden"></button>
+    </div>
+    <div class="pin-error" id="pin-error"></div>
+  </div>
+</div>
+
+<header>
+  <div class="logo-mark">
+    <svg viewBox="0 0 80 80" width="28" height="28">
+      <polygon points="40,4 72,22 72,58 40,76 8,58 8,22" fill="#e8451a"/>
+      <polygon points="40,14 63,27 63,53 40,66 17,53 17,27" fill="#f05a2a"/>
+      <polygon points="40,22 54,30 40,38 26,30" fill="#fff" opacity=".95"/>
+      <polygon points="26,30 40,38 40,54 26,46" fill="#ffd6c8" opacity=".85"/>
+      <polygon points="54,30 40,38 40,54 54,46" fill="#ffe8e0" opacity=".75"/>
+    </svg>
+    <div class="wordmark"><span class="three">Three</span><span class="print">Print</span></div>
+  </div>
+  <div class="header-sub">Product Ideas</div>
+</header>
+
+<div class="hero">
+  <h1>Product pipeline<br><span>Eindhoven</span> · April 2026</h1>
+  <p>From Koningsdag to hero products · All ideas, channels &amp; timings in one place</p>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-val" id="stat-total">0</div><div class="stat-label">Ideas tracked</div></div>
+  <div class="stat"><div class="stat-val">3</div><div class="stat-label">Hero products</div></div>
+  <div class="stat"><div class="stat-val">6</div><div class="stat-label">VV DBS ideas</div></div>
+  <div class="stat"><div class="stat-val">10</div><div class="stat-label">Days to Koningsdag</div></div>
+</div>
+
+<div class="controls">
+  <span class="controls-label">Filter:</span>
+  <button class="filter-btn active" onclick="filter('all',this)">All</button>
+  <button class="filter-btn" onclick="filter('now',this)">🟢 Print now</button>
+  <button class="filter-btn" onclick="filter('outsource',this)">🔵 Outsource</button>
+  <button class="filter-btn" onclick="filter('hero',this)">🔥 Hero products</button>
+  <button class="filter-btn" onclick="filter('pipeline',this)">⏳ Pipeline</button>
+  <button class="filter-btn" onclick="filter('b2b',this)">🏢 B2B / DBS</button>
+  <button class="filter-btn" onclick="filter('makerworld',this)">🌐 Makerworld</button>
+  <button class="filter-btn" onclick="filter('ams',this)">🎨 AMS</button>
+</div>
+
+<div class="count-line"><strong id="count-num">0</strong> ideas shown</div>
+<div class="list" id="list"></div>
+
+<footer>
+  <div class="footer-brand"><span>Three</span>Print &mdash; Eindhoven, NL</div>
+  <div class="footer-note">threeprint.nl · Built by us. Made for you.</div>
+</footer>
+
+<script>
+const products = [
+
+  // === PRINT NOW ===
+  { phase:'now', icon:'🟢', name:'Wearable orange crown', price:'€5–8', timing:'Print tonight', ams:false, b2b:false, hero:false, mw:false, outsource:false, dbs:false,
+    tags:['kingsday'], note:'Koningsdag hero item — highest volume potential' },
+  { phase:'now', icon:'🟢', name:'Whistle / noisemaker', price:'€3–5', timing:'6–16 min each', ams:false, b2b:false, hero:false, mw:false, outsource:false, dbs:false,
+    tags:['kingsday'], note:'Fast print, batch 40 overnight — festival essential' },
+  { phase:'now', icon:'🟢', name:'Crown keychain', price:'€4–6', timing:'20 min each', ams:false, b2b:false, hero:false, mw:false, outsource:false, dbs:false,
+    tags:['kingsday'], note:'Volume item — bundle 2 for €8' },
+  { phase:'now', icon:'🟢', name:'Mini animals (AMS multicolor)', price:'€6–10', timing:'1 hr each', ams:true, b2b:false, hero:false, mw:false, outsource:false, dbs:false,
+    tags:['kingsday'], note:'Print in orange, impulse buy, social media content' },
+  { phase:'now', icon:'🟢', name:'OTF fidget knife', price:'€8–12', timing:'45 min', ams:false, b2b:false, hero:false, mw:false, outsource:false, dbs:false,
+    tags:[], note:'Safe to sell in NL — no blade, pure fidget toy. Demo on street = sells itself' },
+
+  // === OUTSOURCE ===
+  { phase:'outsource', icon:'🔵', name:'PSV bottle opener keychain', price:'€8–12', timing:'Order on 闲鱼 today', ams:true, b2b:false, hero:false, mw:false, outsource:true, dbs:false,
+    tags:[], note:'Round badge style — EINDHOVEN KAMPIOEN 27 — buy-out design rights' },
+  { phase:'outsource', icon:'🔵', name:'Koningsdag crown cup sleeve', price:'€4–6', timing:'Order on 闲鱼 today', ams:false, b2b:false, hero:false, mw:false, outsource:true, dbs:false,
+    tags:['kingsday'], note:'Fits standard plastic festival cup — KONINGSDAG 2026 text' },
+  { phase:'outsource', icon:'🔵', name:'Brainport Eindhoven bottle opener', price:'€10–15', timing:'Post-Koningsdag', ams:true, b2b:true, hero:false, mw:false, outsource:true, dbs:false,
+    tags:['b2b'], note:'Year-round product — ASML / tech SME employees, B2B gift potential' },
+
+  // === HERO PRODUCTS ===
+  { phase:'hero', icon:'🔥', name:'Custom TPU insoles', price:'€65–85/pair', timing:'Post June 11', ams:false, b2b:false, hero:true, mw:false, outsource:false, dbs:false,
+    tags:['hero'], note:'iPhone foot scan → P2S print. No NL competitor in D2C segment. Material cost ~€2' },
+  { phase:'hero', icon:'🔥', name:'Custom figure display — Family edition', price:'€45–75', timing:'Post June 11', ams:true, b2b:false, hero:true, mw:false, outsource:false, dbs:false,
+    tags:['hero','ams'], note:'LEGO-style AMS figures + photo frame + LED spotlight gift box. Target: 百日宴, 婚礼, 生日' },
+  { phase:'hero', icon:'🔥', name:'Custom figure display — Couple edition', price:'€45–75', timing:'Post June 11', ams:true, b2b:false, hero:true, mw:false, outsource:false, dbs:false,
+    tags:['hero','ams'], note:'Birthday / anniversary / Valentine\'s. NL + Chinese market. Local 3-day delivery vs China 2 weeks' },
+
+  // === PIPELINE ===
+  { phase:'pipeline', icon:'⏳', name:'F1 2026 season calendar wall art', price:'€45–65', timing:'May 2026', ams:true, b2b:false, hero:false, mw:false, outsource:false, dbs:false,
+    tags:['ams'], note:'Zandvoort GP Aug 21–23. Remove F1 logo → race tracks are not copyrighted. AMS black + red' },
+  { phase:'pipeline', icon:'⏳', name:'Oracle bone script (甲骨文) figurines', price:'€15–25', timing:'June 2026', ams:true, b2b:true, hero:false, mw:false, outsource:false, dbs:false,
+    tags:['b2b','ams'], note:'Chinese schools, tea shops, restaurants — cultural gift, no NL competitor. Also via 1688 STL' },
+  { phase:'pipeline', icon:'⏳', name:'Noodpakket organizer inserts', price:'€15–40', timing:'June 2026', ams:false, b2b:true, hero:false, mw:false, outsource:false, dbs:false,
+    tags:['b2b'], note:'Gridfinity-style inserts for existing storage boxes. Hook: Dutch govt "Denk Vooruit" campaign' },
+  { phase:'pipeline', icon:'⏳', name:'Eindhoven city map art', price:'€25–45', timing:'May 2026', ams:true, b2b:false, hero:false, mw:false, outsource:false, dbs:false,
+    tags:['ams'], note:'Expats, Brainport employees, local gift. Unique local angle' },
+  { phase:'pipeline', icon:'⏳', name:'Koningsdag 2027 product line', price:'€4–15', timing:'Sep 2026 design → Apr 2027', ams:true, b2b:false, hero:false, mw:true, outsource:true, dbs:false,
+    tags:['kingsday','mw'], note:'Plan ahead: crown, tulip, lion, windmill. Upload to Makerworld Sep 2026 for passive income' },
+
+  // === VV DBS B2B ===
+  { phase:'b2b', icon:'⚽', name:'VV DBS — Penaltybokaal trophy', price:'€200–500/yr', timing:'Approach now', ams:false, b2b:true, hero:false, mw:false, outsource:false, dbs:true,
+    tags:['b2b','dbs'], note:'Their famous annual penalty tournament. Year-on-year repeat order. Contact: communicatie@vvdbs.nl' },
+  { phase:'b2b', icon:'⚽', name:'VV DBS — Player name plate system', price:'€300–600/season', timing:'May 2026', ams:false, b2b:true, hero:false, mw:false, outsource:false, dbs:true,
+    tags:['b2b','dbs'], note:'Changing room plates, swappable each season. 50+ teams × 15 players = recurring demand' },
+  { phase:'b2b', icon:'⚽', name:'VV DBS — Barca Summercamp souvenir', price:'€500–1000', timing:'June 2026 (camp July)', ams:true, b2b:true, hero:false, mw:false, outsource:false, dbs:true,
+    tags:['b2b','dbs','ams'], note:'FC Barcelona Academy × DBS July 13–17. Custom keychains/plaques. Parents always buy for kids' },
+  { phase:'b2b', icon:'⚽', name:'VV DBS — Player achievement badges', price:'€200–400/season', timing:'Jun 2026', ams:true, b2b:true, hero:false, mw:false, outsource:false, dbs:true,
+    tags:['b2b','dbs','ams'], note:'Scout-style badges: 10 goals, full attendance, best player. 900 youth members = big parent market' },
+  { phase:'b2b', icon:'⚽', name:'VV DBS — Tactics board pieces', price:'€15–25/set', timing:'Jun 2026', ams:true, b2b:true, hero:false, mw:false, outsource:false, dbs:true,
+    tags:['b2b','dbs','ams'], note:'Magnetic player pieces in DBS colours per coach. 50 teams = 50 sets potential' },
+  { phase:'b2b', icon:'⚽', name:'VV DBS — VIP seat number plates', price:'€100–300 one-off', timing:'Jul 2026', ams:false, b2b:true, hero:false, mw:false, outsource:false, dbs:true,
+    tags:['b2b','dbs'], note:'Personalized seat numbers for VIP/sponsors. Gift from club = your name on their field' },
+
+  // === MAKERWORLD ORIGINALS ===
+  { phase:'makerworld', icon:'🌐', name:'Koningsdag product line (upload)', price:'Passive income', timing:'Upload Aug 2026', ams:true, b2b:false, hero:false, mw:true, outsource:false, dbs:false,
+    tags:['kingsday','mw'], note:'Crown, tulip, lion, windmill. Global NL diaspora buys STL. BOM commission on Bambu filament' },
+  { phase:'makerworld', icon:'🌐', name:'甲骨文 oracle bone series (paid download)', price:'€2–5/file', timing:'Jun 2026', ams:false, b2b:false, hero:false, mw:true, outsource:false, dbs:false,
+    tags:['mw'], note:'No Chinese creator targets European market. Unique niche on Makerworld globally' },
+  { phase:'makerworld', icon:'🌐', name:'Zandvoort F1 circuit miniature', price:'Passive income', timing:'Jun 2026', ams:true, b2b:false, hero:false, mw:true, outsource:false, dbs:false,
+    tags:['ams','mw'], note:'NL GP souvenir. Race track shape = no copyright. BOM commission from filament purchases' },
+  { phase:'makerworld', icon:'🌐', name:'NL amateur club trophy template', price:'€15 commercial license', timing:'Jul 2026', ams:false, b2b:true, hero:false, mw:true, outsource:false, dbs:false,
+    tags:['b2b','mw'], note:'Sell commercial print rights to other 3D printers. Scalable without doing the printing yourself' },
+];
+
+let current = 'all';
+
+function filter(cat, btn) {
+  current = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+const phaseOrder = ['now','outsource','hero','pipeline','b2b','makerworld'];
+const phaseLabels = {
+  now: '🟢 Print Now — 今晚就打',
+  outsource: '🔵 Outsource to China — 外包给中国',
+  hero: '🔥 Hero Products — 主力产品',
+  pipeline: '⏳ Pipeline — 节后计划',
+  b2b: '⚽ B2B — VV DBS Eindhoven — 俱乐部创意',
+  makerworld: '🌐 Makerworld Originals — 被动收入'
+};
+const phaseClass = { now:'now', outsource:'outsource', hero:'hero-product', pipeline:'pipeline', b2b:'b2b-item', makerworld:'makerworld' };
+const badgeClass = { now:'now-badge', outsource:'outsource-badge', hero:'hero-badge', pipeline:'pipeline-badge', b2b:'b2b-badge', makerworld:'mw-badge' };
+
+function render() {
+  let filtered = products;
+  if (current === 'ams') filtered = products.filter(p => p.ams);
+  else if (current === 'now') filtered = products.filter(p => p.phase === 'now');
+  else if (current === 'outsource') filtered = products.filter(p => p.phase === 'outsource');
+  else if (current === 'hero') filtered = products.filter(p => p.phase === 'hero');
+  else if (current === 'pipeline') filtered = products.filter(p => p.phase === 'pipeline');
+  else if (current === 'b2b') filtered = products.filter(p => p.phase === 'b2b');
+  else if (current === 'makerworld') filtered = products.filter(p => p.phase === 'makerworld');
+
+  document.getElementById('count-num').textContent = filtered.length;
+  document.getElementById('stat-total').textContent = products.length;
+
+  let html = '';
+  let lastPhase = null;
+
+  const ordered = current === 'all'
+    ? [...filtered].sort((a,b) => phaseOrder.indexOf(a.phase) - phaseOrder.indexOf(b.phase))
+    : filtered;
+
+  ordered.forEach(p => {
+    if (current === 'all' && p.phase !== lastPhase) {
+      html += `<div class="section-divider">
+        <div class="section-divider-dot"></div>
+        <div class="section-divider-label">${phaseLabels[p.phase]}</div>
+        <div class="section-divider-line"></div>
+      </div>`;
+      lastPhase = p.phase;
+    }
+
+    const tags = [];
+    if (p.tags.includes('kingsday')) tags.push('<span class="tag tag-kd">Koningsdag</span>');
+    if (p.ams) tags.push('<span class="tag tag-ams">AMS</span>');
+    if (p.b2b) tags.push('<span class="tag tag-b2b">B2B</span>');
+    if (p.outsource) tags.push('<span class="tag tag-out">Outsource</span>');
+    if (p.mw) tags.push('<span class="tag tag-mw">Makerworld</span>');
+    if (p.hero) tags.push('<span class="tag tag-hero">Hero</span>');
+    if (p.dbs) tags.push('<span class="tag tag-dbs">VV DBS</span>');
+
+    html += `
+    <div class="item ${phaseClass[p.phase]}">
+      <div style="text-align:center">
+        <div class="phase-icon">${p.icon}</div>
+      </div>
+      <div class="item-body">
+        <div class="item-name">${p.name}</div>
+        <div class="item-meta">
+          <span style="font-size:11px;color:var(--muted)">${p.timing}</span>
+          ${tags.join('')}
+        </div>
+        <div class="item-note">${p.note}</div>
+      </div>
+      <div class="item-right">
+        <div class="item-price">${p.price}</div>
+        <div class="item-per">per unit</div>
+      </div>
+    </div>`;
+  });
+
+  document.getElementById('list').innerHTML = html;
+}
+
+render();
+
+// ═══════════════════════════════════════════════════════════
+// PIN
+// ═══════════════════════════════════════════════════════════
+
+const PIN_HASH    = '0572f0f48c9d4da7f59ccfff270df8a46297128f367248c5319ffe5b16e2f3ad';
+const SESSION_KEY = 'kanban_unlocked';
+let pinEntry = '';
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+function updateDots() {
+  for (let i = 0; i < 4; i++) document.getElementById(`d${i}`).classList.toggle('filled', i < pinEntry.length);
+}
+
+function pinPress(digit) {
+  if (pinEntry.length >= 4) return;
+  pinEntry += digit;
+  updateDots();
+  if (pinEntry.length === 4) checkPin();
+}
+
+function pinDel() {
+  pinEntry = pinEntry.slice(0, -1);
+  document.getElementById('pin-error').textContent = '';
+  updateDots();
+}
+
+async function checkPin() {
+  const hash = await sha256(pinEntry);
+  if (hash === PIN_HASH) {
+    sessionStorage.setItem(SESSION_KEY, '1');
+    document.getElementById('pin-overlay').classList.add('hidden');
+  } else {
+    document.getElementById('pin-error').textContent = 'Incorrect PIN. Try again.';
+    pinEntry = '';
+    updateDots();
+  }
+}
+
+if (sessionStorage.getItem(SESSION_KEY) !== '1') {
+  document.getElementById('pin-overlay').classList.remove('hidden');
+} else {
+  document.getElementById('pin-overlay').classList.add('hidden');
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('pin-overlay').classList.contains('hidden')) return;
+  if (e.key >= '0' && e.key <= '9') pinPress(e.key);
+  if (e.key === 'Backspace') pinDel();
+});
+</script>
+</body>
+</html>

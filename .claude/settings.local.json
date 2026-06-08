@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(powershell -Command \"Remove-Item -Force ''G:/My Drive/2_Career/0_AI/0_own_projects/alanheye.github.io/.git/worktrees/interesting-rosalind/index.lock''\")"
+      "Bash(powershell -Command \"Remove-Item -Force ''G:/My Drive/2_Career/0_AI/0_own_projects/alanheye.github.io/.git/worktrees/interesting-rosalind/index.lock''\")",
+      "Bash(git -C \"G:/My Drive/2_Career/0_AI/0_own_projects/alanheye.github.io\" add kanban/ideas.html)",
+      "Bash(git -C \"G:/My Drive/2_Career/0_AI/0_own_projects/alanheye.github.io\" status)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(powershell -Command \"Set-Location 'G:\\\\My Drive\\\\2_Career\\\\0_AI\\\\0_own_projects\\\\alanheye.github.io'; git add kanban/ideas.html; git status\")",
+      "Bash(gh auth *)"
     ]
   }
 }
